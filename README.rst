@@ -13,13 +13,16 @@ Features
 - **Page Breaks**: Ensure each chapter starts on a new page for a professional look.
 - **Debug Mode**: Save intermediate files (EPUB, HTML, PDF) for debugging purposes.
 
+Website
+=======
+- **The app is deployed to Streamlit**.: https://epub2pdf.streamlit.app/
 Installation
 ============
 To get started, clone the repository and install the required dependencies:
 
 .. code-block:: bash
 
-    git clone https://github.com/yourusername/epub-to-pdf-converter.git
+    git clone https://github.com/trungmc/tmc_epub_to_pdf.git
     cd epub-to-pdf-converter
     pip install -r requirements.txt
 
