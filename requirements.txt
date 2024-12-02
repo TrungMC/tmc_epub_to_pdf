@@ -4,3 +4,4 @@ ebooklib
 beautifulsoup4
 pdfkit
 user-agents
+weasyprint

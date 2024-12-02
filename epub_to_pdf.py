@@ -14,7 +14,7 @@ import pdfkit
 import csv
 from datetime import datetime
 from user_agents import parse
-
+from weasyprint import HTML, CSS
 # Global constant for debugging
 DEBUG = False
 
@@ -94,7 +94,29 @@ def epub_to_html(epub_file_path, text_font, text_size, header_font):
     html_buffer.seek(0)
     return html_buffer
 
+
 def html_to_pdf(html_buffer, pdf_path):
+
+
+    # Create a WeasyPrint HTML object from the buffer
+    html = HTML(string=html_buffer.getvalue())
+
+    # Optional: Add some basic CSS for better rendering
+    css = CSS(string='''
+    @page {
+        size: A4;
+        margin: 1cm;
+    }
+    body {
+        font-family: Arial, sans-serif;
+        line-height: 1.6;
+    }
+    ''')
+
+    # Write the PDF to the specified path
+    html.write_pdf(pdf_path, stylesheets=[css])
+
+def html_to_pdf_wkhtml2pdf(html_buffer, pdf_path):
     # Save the HTML content to a temporary file
     with tempfile.NamedTemporaryFile(delete=False, suffix='.html') as temp_html:
         temp_html.write(html_buffer.getvalue().encode('utf-8'))
