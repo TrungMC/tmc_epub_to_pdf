@@ -1,6 +1,5 @@
 import requests
 import streamlit as st
-import ebooklib
 from ebooklib import epub
 from bs4 import BeautifulSoup
 import io
