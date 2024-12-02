@@ -1,4 +1,4 @@
-import requests
+#import requests
 import streamlit as st
 from ebooklib import epub
 import ebooklib
@@ -6,11 +6,11 @@ from bs4 import BeautifulSoup
 import io
 import tempfile
 import os
-import subprocess
+#import subprocess
 import json
 import re
 import base64
-import pdfkit
+#import pdfkit
 import csv
 from datetime import datetime
 from user_agents import parse
@@ -32,8 +32,8 @@ def add_cover_page(html_buffer, title, author):
     html_buffer.write('''
     <div style="display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center;">
         <div>
-            <h1 style="font-size: 3em;">{}</h1>
-            <h2 style="font-size: 2em; color: gray;">{}</h2>
+            <h1 style="font-size: 2.5em;">{}</h1>
+            <h2 style="font-size: 1.8em; color: gray;">{}</h2>
         </div>
     </div>
     '''.format(title, author))
@@ -71,12 +71,12 @@ def epub_to_html(epub_file_path, text_font, text_size, header_font):
     # Add cover page
     add_cover_page(html_buffer, title, author)
 
-    # Add cover image if available
-    cover_item = book.get_item_with_id('cover')
-    if cover_item:
-        cover_image = cover_item.get_content()
-        cover_image_base64 = convert_image_to_base64(cover_image)
-        html_buffer.write(f'<img src="data:image/jpeg;base64,{cover_image_base64}" style="width:100%;height:auto;"/>')
+    # # Add cover image if available
+    # cover_item = book.get_item_with_id('cover')
+    # if cover_item:
+    #     cover_image = cover_item.get_content()
+    #     cover_image_base64 = convert_image_to_base64(cover_image)
+    #     html_buffer.write(f'<img src="data:image/jpeg;base64,{cover_image_base64}" style="width:100%;height:auto;"/>')
 
     # Iterate through the EPUB items
     items = book.get_items()
@@ -114,19 +114,19 @@ def html_to_pdf(html_buffer, pdf_path):
     ''')
 
     # Write the PDF to the specified path
-    html.write_pdf(pdf_path, stylesheets=[css])
+    html.write_pdf(pdf_path)
 
-def html_to_pdf_wkhtml2pdf(html_buffer, pdf_path):
-    # Save the HTML content to a temporary file
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.html') as temp_html:
-        temp_html.write(html_buffer.getvalue().encode('utf-8'))
-        temp_html_path = temp_html.name
-
-    # Convert the HTML file to PDF using pdfkit
-    pdfkit.from_file(temp_html_path, pdf_path)
-
-    # Delete the temporary HTML file
-    os.remove(temp_html_path)
+# def html_to_pdf_wkhtml2pdf(html_buffer, pdf_path):
+#     # Save the HTML content to a temporary file
+#     with tempfile.NamedTemporaryFile(delete=False, suffix='.html') as temp_html:
+#         temp_html.write(html_buffer.getvalue().encode('utf-8'))
+#         temp_html_path = temp_html.name
+#
+#     # Convert the HTML file to PDF using pdfkit
+#     pdfkit.from_file(temp_html_path, pdf_path)
+#
+#     # Delete the temporary HTML file
+#     os.remove(temp_html_path)
 def log_user_activity(ip_address, browser, epub_file_name):
     log_file = 'user_activity_log.csv'
     fieldnames = ['datetime', 'ip_address', 'browser', 'epub_file_name']
@@ -147,7 +147,7 @@ def log_user_activity(ip_address, browser, epub_file_name):
 
 
 # Streamlit app
-st.title('📚 EPUB to PDF Converter for Kids 📚')
+st.title('📚EPUB to PDF Converter for Kids📚')
 st.markdown('Convert your favorite EPUB books to PDF for easy reading and printing! 🌟')
 
 # File uploader
@@ -157,7 +157,7 @@ uploaded_file = st.file_uploader('Upload your EPUB file here:', type=['epub'])
 with st.container():
     col1, col2=st.columns(2)
     text_font = col1.selectbox('Select Text Font', list(fonts.keys()))
-    text_size = col2.slider('Select Text Size', 0.5, 2.0, 1.0, step=0.1)
+    text_size = col2.slider('Select Text Size', 0.5, 2.0, 1.2, step=0.1)
 with st.container():
     col1, col2=st.columns(2)
     header_font = col1.selectbox('Select Header Font', list(fonts.keys()))

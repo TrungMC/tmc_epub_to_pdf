@@ -2,6 +2,6 @@ streamlit
 requests
 ebooklib
 beautifulsoup4
-pdfkit
+#pdfkit
 user-agents
 weasyprint
