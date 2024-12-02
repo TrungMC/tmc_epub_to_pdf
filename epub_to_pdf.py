@@ -1,6 +1,7 @@
 import requests
 import streamlit as st
 from ebooklib import epub
+import ebooklib
 from bs4 import BeautifulSoup
 import io
 import tempfile
@@ -143,7 +144,7 @@ with st.container():
 # Convert button
 with st.container():
     col1, col2, col3 = st.columns(3)
-    convert_button = col1.button('Convert', key='convert_button', help='Convert EPUB to PDF', type='primary')
+    convert_button = col1.button('Convert', key='convert_button', help='Convert EPUB to PDF', type='primary', disabled=uploaded_file is None)
     # Placeholders for download buttons
     pdf_download_placeholder = col2.empty()
     html_download_placeholder = col3.empty()
